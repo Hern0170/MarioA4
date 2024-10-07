@@ -8,13 +8,16 @@ public class CoinPickup : Pickup
     public Collider2D frontTrigger; 
     public Collider2D backTrigger;  
     private Vector2 velocity;
+    private Animator animator;
     private bool IsFlipped = true;
+
     // Start is called before the first frame update
     void Start()
     {
         pickupType = EPickupType.Coin;
-        Animator animator = GetComponent<Animator>();
         animator.Play("Coin");
+        animator = GetComponent<Animator>();
+
         //animator.speed = 0;
     }
 
@@ -42,13 +45,14 @@ public class CoinPickup : Pickup
 
     public void StopAnimation()
     {
+
         if (!IsFlipped)
         {
             animator.speed = 1;
         }
         else
         {
-            animator.Play("Coin",0,frameTime);
+            animator.Play("Coin",0,1);
             animator.speed = 0;
 
         }

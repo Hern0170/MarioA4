@@ -14,6 +14,8 @@ public class Game : MonoBehaviour
     public GameObject itemBoxPickupPrefab;
     public GameObject breakableBlockBitPrefab;
     public GameObject pSwitchPrefab;
+    public GameObject breakableBlockPrefab;
+    public GameObject coinPickupPrefab;
 
     private GameObject deadMario = null;
     private Vector2 marioSpawnLocation = Vector2.zero;
@@ -234,5 +236,37 @@ public class Game : MonoBehaviour
                 deadMario = Instantiate(deadMarioPrefab, new Vector3(location.x, location.y, -1.5f), Quaternion.identity);
             }
         }
+    }
+
+    public void ActivatePSwitchEffect()
+    {
+        StartCoroutine(SwitchBlocksAndCoins());
+    }
+
+    private IEnumerator SwitchBlocksAndCoins()
+    {
+        // Encuentra todos los CoinPickup y BreakableBlocks en la escena
+        CoinPickup[] coins = FindObjectsOfType<CoinPickup>();
+        BreakableBlock[] blocks = FindObjectsOfType<BreakableBlock>();
+
+        // Intercambia CoinPickup por BreakableBlock
+        foreach (CoinPickup coin in coins)
+        {
+            Instantiate(breakableBlockPrefab, coin.transform.position, Quaternion.identity);
+            Destroy(coin.gameObject);
+        }
+
+        // Intercambia BreakableBlock por CoinPickup
+        foreach (BreakableBlock block in blocks)
+        {
+            Instantiate(coinPickupPrefab, block.transform.position, Quaternion.identity);
+            Destroy(block.gameObject);
+        }
+
+        // Espera 10 segundos antes de revertir los cambios
+        yield return new WaitForSeconds(10);
+
+
+
     }
 }
