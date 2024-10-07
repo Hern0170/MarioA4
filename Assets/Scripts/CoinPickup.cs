@@ -7,13 +7,15 @@ public class CoinPickup : Pickup
 {
     public Collider2D frontTrigger; 
     public Collider2D backTrigger;  
-    private Vector2 velocity;       
+    private Vector2 velocity;
+    private bool IsFlipped = true;
     // Start is called before the first frame update
     void Start()
     {
         pickupType = EPickupType.Coin;
         Animator animator = GetComponent<Animator>();
         animator.Play("Coin");
+        //animator.speed = 0;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -35,6 +37,20 @@ public class CoinPickup : Pickup
                     velocity.x = PickupConstants.MushroomSpeed;
                 }
             }
+        }
+    }
+
+    public void StopAnimation()
+    {
+        if (!IsFlipped)
+        {
+            animator.speed = 1;
+        }
+        else
+        {
+            animator.Play("Coin",0,frameTime);
+            animator.speed = 0;
+
         }
     }
 }

@@ -351,9 +351,12 @@ public class Mario : MonoBehaviour
                 marioState.Coins++;
             }
 
+
+            if(pickupType != EPickupType.PSwitch)
+            {
                 // Destroy the pickup gameObject
                 Destroy(collider.gameObject);
-
+            }
 
         }
     }
