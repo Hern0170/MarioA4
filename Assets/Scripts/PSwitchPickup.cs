@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Collections.AllocatorManager;
 
 public enum PSwitchState : byte
 {
@@ -9,6 +10,8 @@ public enum PSwitchState : byte
 }
 public class PSwitchPickup : Pickup
 {
+    public GameObject FlashPickupPrefab;
+
     protected PSwitchState switchState;
 
     public PSwitchState PSwitchState 
@@ -26,6 +29,7 @@ public class PSwitchPickup : Pickup
         switchState = PSwitchState.Inactive;
         Animator animator = GetComponent<Animator>();
         animator.Play("P-SwitchOn");
+        Instantiate(FlashPickupPrefab, gameObject.transform.position, Quaternion.identity);
     }
 
     void OnCollisionEnter2D(Collision2D collision)

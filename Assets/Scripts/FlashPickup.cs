@@ -13,7 +13,7 @@ public class FlashPickup : Pickup
 
     public void DestroyOnEnd()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 
 

@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class CoinPickup : Pickup
 {
-    public Collider2D frontTrigger; 
-    public Collider2D backTrigger;  
+
     private Vector2 velocity;
     private Animator animator;
     private bool IsFlipped = false;
@@ -39,15 +38,6 @@ public class CoinPickup : Pickup
                 ContactFilter2D filter = new ContactFilter2D().NoFilter();
                 List<Collider2D> results = new List<Collider2D>();
                 other.OverlapCollider(filter, results);
-
-                if (results.Contains(frontTrigger))
-                {
-                    velocity.x = -PickupConstants.MushroomSpeed;
-                }
-                else if (results.Contains(backTrigger))
-                {
-                    velocity.x = PickupConstants.MushroomSpeed;
-                }
             }
         }
     }

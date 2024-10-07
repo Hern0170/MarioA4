@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9557bf624c47ac47ad0a78718b97d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FlashPickupPrefab: {fileID: 8434970661847649612, guid: 4fffd1c046005da4ebf8dfc8444f54e1, type: 3}
 --- !u!50 &-6765135315701293679
 Rigidbody2D:
   serializedVersion: 4
