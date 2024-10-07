@@ -248,40 +248,51 @@ public class Game : MonoBehaviour
     {
         // Encuentra todos los CoinPickup y BreakableBlocks en la escena
         CoinPickup[] coins = FindObjectsOfType<CoinPickup>();
-        var coinsCount = coins.Length;
         BreakableBlock[] blocks = FindObjectsOfType<BreakableBlock>();
 
         // Intercambia CoinPickup por BreakableBlock
-        for ( int i = 0; i < coinsCount; i++ ) {
-            Instantiate(breakableBlockPrefab, coins[i].transform.position, Quaternion.identity);
-            Destroy(coins[i].gameObject);
-            Debug.Log("Coins");
+        foreach (CoinPickup coin in coins ) {
+            Instantiate(breakableBlockPrefab, coin.transform.position, Quaternion.identity);
+            Destroy(coin.gameObject);
+            //Debug.Log("Coins");
         }
 
         // Intercambia BreakableBlock por CoinPickup
         foreach (BreakableBlock block in blocks)
         {
             Instantiate(coinPickupPrefab, block.transform.position, Quaternion.identity);
+            
             Destroy(block.gameObject);
+
+        }
+
+        CoinPickup[] coinsf = FindObjectsOfType<CoinPickup>();
+
+        foreach (CoinPickup coinf in coinsf)
+        {
+            coinf.isFlipped = true;
         }
 
         // Espera 10 segundos antes de revertir los cambios
         yield return new WaitForSeconds(10);
 
+        BreakableBlock[] blocks2 = FindObjectsOfType<BreakableBlock>();
+        CoinPickup[] coins2 = FindObjectsOfType<CoinPickup>();
+
         // Intercambia CoinPickup por BreakableBlock
-        for (int i = 0; i < coinsCount; i++)
+        foreach (CoinPickup coin2 in coins2)
         {
-            Instantiate(breakableBlockPrefab, coins[i].transform.position, Quaternion.identity);
-            Destroy(coins[i].gameObject);
-            Debug.Log("Coins");
+            Instantiate(breakableBlockPrefab, coin2.transform.position, Quaternion.identity);
+            Destroy(coin2.gameObject);
         }
 
         // Intercambia BreakableBlock por CoinPickup
-        foreach (BreakableBlock block in blocks)
+        foreach (BreakableBlock block2 in blocks2)
         {
-            Instantiate(coinPickupPrefab, block.transform.position, Quaternion.identity);
-            Destroy(block.gameObject);
+            Instantiate(coinPickupPrefab, block2.transform.position, Quaternion.identity);
+            Destroy(block2.gameObject);
         }
+
 
     }
 }

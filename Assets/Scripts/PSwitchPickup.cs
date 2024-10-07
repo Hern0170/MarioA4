@@ -10,6 +10,12 @@ public enum PSwitchState : byte
 public class PSwitchPickup : Pickup
 {
     protected PSwitchState switchState;
+
+    public PSwitchState PSwitchState 
+    {
+        get { return switchState; }
+        set { switchState = value; }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +47,7 @@ public class PSwitchPickup : Pickup
         animator.Play("P-SwitchOff");
         GetComponent<Collider2D>().isTrigger = true;
         Game.Instance.ActivatePSwitchEffect();
+
     }
 
 }
