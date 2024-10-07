@@ -350,17 +350,10 @@ public class Mario : MonoBehaviour
             {
                 marioState.Coins++;
             }
-            else if (pickupType == EPickupType.PSwitch)
-            {
-                PSwitchPickup pSwitchPickup = collider.GetComponent<PSwitchPickup>();
-                pSwitchPickup.Activate();
-            }
 
-            if(pickupType != EPickupType.PSwitch)
-            {
                 // Destroy the pickup gameObject
                 Destroy(collider.gameObject);
-            }
+
 
         }
     }

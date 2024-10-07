@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CoinPickup : Pickup
 {
+    public Collider2D frontTrigger; 
+    public Collider2D backTrigger;  
+    private Vector2 velocity;       
     // Start is called before the first frame update
     void Start()
     {

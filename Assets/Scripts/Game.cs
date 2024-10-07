@@ -14,7 +14,6 @@ public class Game : MonoBehaviour
     public GameObject itemBoxPickupPrefab;
     public GameObject breakableBlockBitPrefab;
     public GameObject pSwitchPrefab;
-    public GameObject flashPrefab;
 
     private GameObject deadMario = null;
     private Vector2 marioSpawnLocation = Vector2.zero;
@@ -205,9 +204,9 @@ public class Game : MonoBehaviour
     {
         if (pSwitchPrefab != null)
         {
-            GameObject pSwitchObject = Instantiate(pSwitchPrefab, new Vector3(location.x, location.y, 1.0f), Quaternion.identity);
+            GameObject pSwitchObject = Instantiate(pSwitchPrefab, new Vector3(location.x, location.y+1.0f, 1.0f), Quaternion.identity);
             PSwitchPickup pSwitchPickup = pSwitchObject.GetComponent<PSwitchPickup>();
-            pSwitchPickup.Spawn();
+            //pSwitchPickup.Spawn();
 
             //GameObject flashObject = Instantiate(flashPrefab, new Vector3(location.x, location.y, 1.0f), Quaternion.identity);
             //FlashPickup flashPickup = flashObject.GetComponent<FlashPickup>();
