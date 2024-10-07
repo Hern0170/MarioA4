@@ -83,6 +83,7 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (deadMario != null)
         {
             if (deadMario.transform.position.y < GameConstants.DestroyActorAtY)
@@ -104,6 +105,7 @@ public class Game : MonoBehaviour
             timeRemaining = 0.0f;
             GetMario.HandleDamage(true); // Mario is dead
         }
+
     }
 
     public void PauseActors()
@@ -209,7 +211,6 @@ public class Game : MonoBehaviour
             GameObject pSwitchObject = Instantiate(pSwitchPrefab, new Vector3(location.x, location.y+1.0f, 1.0f), Quaternion.identity);
             PSwitchPickup pSwitchPickup = pSwitchObject.GetComponent<PSwitchPickup>();
             //pSwitchPickup.Spawn();
-
             //GameObject flashObject = Instantiate(flashPrefab, new Vector3(location.x, location.y, 1.0f), Quaternion.identity);
             //FlashPickup flashPickup = flashObject.GetComponent<FlashPickup>();
         }
@@ -247,13 +248,14 @@ public class Game : MonoBehaviour
     {
         // Encuentra todos los CoinPickup y BreakableBlocks en la escena
         CoinPickup[] coins = FindObjectsOfType<CoinPickup>();
+        var coinsCount = coins.Length;
         BreakableBlock[] blocks = FindObjectsOfType<BreakableBlock>();
 
         // Intercambia CoinPickup por BreakableBlock
-        foreach (CoinPickup coin in coins)
-        {
-            Instantiate(breakableBlockPrefab, coin.transform.position, Quaternion.identity);
-            Destroy(coin.gameObject);
+        for ( int i = 0; i < coinsCount; i++ ) {
+            Instantiate(breakableBlockPrefab, coins[i].transform.position, Quaternion.identity);
+            Destroy(coins[i].gameObject);
+            Debug.Log("Coins");
         }
 
         // Intercambia BreakableBlock por CoinPickup
@@ -266,7 +268,20 @@ public class Game : MonoBehaviour
         // Espera 10 segundos antes de revertir los cambios
         yield return new WaitForSeconds(10);
 
+        // Intercambia CoinPickup por BreakableBlock
+        for (int i = 0; i < coinsCount; i++)
+        {
+            Instantiate(breakableBlockPrefab, coins[i].transform.position, Quaternion.identity);
+            Destroy(coins[i].gameObject);
+            Debug.Log("Coins");
+        }
 
+        // Intercambia BreakableBlock por CoinPickup
+        foreach (BreakableBlock block in blocks)
+        {
+            Instantiate(coinPickupPrefab, block.transform.position, Quaternion.identity);
+            Destroy(block.gameObject);
+        }
 
     }
 }

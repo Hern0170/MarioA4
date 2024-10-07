@@ -14,9 +14,13 @@ public class CoinPickup : Pickup
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            return;
+        }
         pickupType = EPickupType.Coin;
         animator.Play("Coin");
-        animator = GetComponent<Animator>();
 
         //animator.speed = 0;
     }
@@ -43,7 +47,7 @@ public class CoinPickup : Pickup
         }
     }
 
-    public void StopAnimation()
+    public void StopA()
     {
 
         if (!IsFlipped)
