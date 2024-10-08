@@ -19,10 +19,20 @@ public class Mario : MonoBehaviour
     private float previousAnimatorSpeed = 1.0f;
     private bool transformOrDamageAnimationIsRunning = false;
 
+    private Vector2 hidingLocation = Vector2.zero;
+    private Vector2 activeLocation = Vector2.zero;
+    private float animationTimer = 1.5f;
+
     // Start is called before the first frame update
     void Start()
     {
+        hidingLocation = transform.position;
+        activeLocation = hidingLocation + new Vector2(0.0f, EnemyConstants.PiranhaPlantOffsetY);
+
+       
+
         animator = GetComponent<Animator>();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<CapsuleCollider2D>();
 
@@ -56,6 +66,15 @@ public class Mario : MonoBehaviour
     {
         UpdateAnimator();
 
+        
+        if (animationTimer >= 0.0f)
+        {
+            animationTimer -= Time.deltaTime * Game.Instance.LocalTimeScale;
+            float pct = 1.0f - (animationTimer / EnemyConstants.PiranhaPlantAnimationDuration);
+            float locationX = Mathf.Lerp(activeLocation.x, hidingLocation.x, pct);
+            float locationY = Mathf.Lerp(activeLocation.y, hidingLocation.y, pct);
+            transform.position = new Vector2(locationX, locationY);
+        }
         marioMovement.LocalTimeScale = Game.Instance.LocalTimeScale;
 
         // Ensure that the player isn't Dead
